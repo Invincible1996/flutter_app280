@@ -2,8 +2,13 @@
 /// @date: 2021/12/17 16:10
 /// @author: kevin
 /// @description: dart
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app280/entry/user_entry.dart';
 import 'package:flutter_app280/model/login_model.dart';
+import 'package:flutter_app280/net/api_response.dart';
+import 'package:flutter_app280/router/router_config.gr.dart';
+import 'package:flutter_app280/util/log.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -68,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   // context.router.push(const SettingRoute());
                   // context.router.replaceAll([const SettingRoute()]);
                   // HttpUtils.post('/v1/api/auth/smsLogin', data: {
@@ -79,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   //   "dataProvider": null,
                   //   "encryptedData": null,
                   // });
-                  LoginModel.login({
+                  ApiResponse<UserEntry> response = await LoginModel.login({
                     "phone": "13701701451",
                     "smsCaptcha": "6666",
                     "countryCode": "+86",
@@ -87,6 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                     "dataProvider": null,
                     "encryptedData": null,
                   });
+                  Log.d(response.status);
+                  Log.d(response.code);
+                  if (response.code == 'success') {
+                    context.router.replace(const IndexRoute());
+                  }
+                  Log.d(response.message);
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(405, 50),

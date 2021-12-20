@@ -11,7 +11,7 @@ class ApiResponse<T> implements Exception {
   String? message;
   AppException? exception;
 
-  ApiResponse.completed(this.data) : status = Status.completed;
+  ApiResponse.completed(this.data, this.code, this.message) : status = Status.completed;
 
   ApiResponse.error(this.exception) : status = Status.error;
 
