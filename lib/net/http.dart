@@ -4,8 +4,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_app280/net/connectivity_request_retry.dart';
+import 'package:flutter_app280/net/interceptor/request_interceptor.dart';
 import 'package:flutter_app280/net/proxy.dart';
 import 'package:flutter_app280/net/retry_interceptor.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'cache.dart';
 import 'error_interceptor.dart';
@@ -44,6 +46,18 @@ class Http {
 
     // 添加error拦截器
     dio.interceptors.add(ErrorInterceptor());
+    dio.interceptors.add(RequestInterceptor());
+    dio.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+      ),
+    );
     if (Global.retryEnable) {
       dio.interceptors.add(
         RetryOnConnectionChangeInterceptor(

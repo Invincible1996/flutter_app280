@@ -85,12 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                   //   "encryptedData": null,
                   // });
                   ApiResponse<UserEntry> response = await LoginModel.login({
-                    "phone": "13701701451",
-                    "smsCaptcha": "6666",
-                    "countryCode": "+86",
-                    "appId": null,
-                    "dataProvider": null,
-                    "encryptedData": null,
+                    "userName": "000651",
+                    "password": "E2F5E798186344470F784F353A80EF7F",
+                    "userType": "Employee",
                   });
                   Log.d(response.status);
                   Log.d(response.code);

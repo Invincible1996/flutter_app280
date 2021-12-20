@@ -29,7 +29,7 @@ class _IndexPageState extends State<IndexPage> {
       body: Row(
         children: [
           Container(
-            width: 208,
+            width: 222,
             // height: 800,
             color: HexColor('#001528'),
             child: Column(

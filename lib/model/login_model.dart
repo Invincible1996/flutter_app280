@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_app280/entry/user_entry.dart';
 import 'package:flutter_app280/net/api_response.dart';
+import 'package:flutter_app280/net/http.dart';
 import 'package:flutter_app280/net/http_util.dart';
 import 'package:flutter_app280/util/log.dart';
 
@@ -15,7 +16,8 @@ class LoginModel {
   /// desc 验证码登录
   static Future<ApiResponse<UserEntry>> login(params) async {
     try {
-      var response = await HttpUtils.post('/v1/api/auth/smsLogin', data: params);
+      Http().setHeaders({'Client': 'APP'});
+      var response = await HttpUtils.post('/v1/api/auth/login', data: params);
       var data = UserEntry.fromJson(response);
       Log.d(data);
       return ApiResponse.completed(data, data.code, data.message);
@@ -23,4 +25,6 @@ class LoginModel {
       return ApiResponse.error(e.error);
     }
   }
+
+  // static
 }
